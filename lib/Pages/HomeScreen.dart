@@ -43,7 +43,17 @@ class _HomeScreenState extends State<HomeScreen> {
           Profile(),
         ],
       ),
-      
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
+      floatingActionButton: Padding(
+        padding: const EdgeInsets.only(top: 20),
+        child: FloatingActionButton(
+          backgroundColor: const Color(0xFF036086),
+          mini: true,
+          shape: const CircleBorder(),
+          onPressed: () {},
+          child: const Icon(Icons.qr_code_scanner_sharp, color: Colors.white,),
+        ),
+      ),
       bottomNavigationBar: BottomNavigationBar(
         backgroundColor: Colors.white,
         type: BottomNavigationBarType.fixed,
