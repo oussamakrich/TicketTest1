@@ -1,4 +1,5 @@
 import 'package:corail_clone/Auth/RegisterScreen.dart';
+import 'package:corail_clone/Auth/UsagePages/UsagePage.dart';
 import 'package:corail_clone/Auth/WelcomePages/WelcomeScreen.dart';
 import 'package:corail_clone/Pages/HomeScreen.dart';
 import 'package:corail_clone/Providers/UserProvider.dart';
@@ -53,7 +54,7 @@ class _InitialScreenState extends State<InitialScreen> {
     if (prefs.getString('name') != null && prefs.getString('lastname') != null && prefs.getString('password') != null) {
       Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => const HomeScreen()));
     } else {
-      Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => const WelcomeScreen()));
+      Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => const Usage()));
     }
   }
 

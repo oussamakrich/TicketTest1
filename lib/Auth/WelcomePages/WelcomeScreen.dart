@@ -139,25 +139,3 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
     );
   }
 }
-
-class Show extends StatelessWidget {
-  const Show({super.key, required this.show});
-
-  final Map<String, String> show;  
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      height: 400,
-      child: Column(
-         children: [
-          Image.asset(show['image']!, height: 150),
-          const SizedBox(height: 30),
-          Text(show['title']!, style: const TextStyle(fontSize: 24, fontWeight: FontWeight.bold),textAlign: TextAlign.center,),
-          const SizedBox(height: 20),
-          Text(show['more']!,style: TextStyle(color: Colors.grey[600]), textAlign: TextAlign.center),
-         ]
-      ),
-    ) ;
-  }
-}
