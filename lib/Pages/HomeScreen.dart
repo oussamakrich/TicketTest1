@@ -1,5 +1,6 @@
 import 'package:corail_clone/Pages/Home/Home.dart';
 import 'package:corail_clone/Pages/Profile/Profile.dart';
+import 'package:corail_clone/Pages/Receipt/Receipts.dart';
 import 'package:flutter/material.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -37,8 +38,8 @@ class _HomeScreenState extends State<HomeScreen> {
         onPageChanged: updateIndex,
         children: [
           const Home(),
-          const Center(child: Text('Search')),
-          const Center(child: Text('Notifications')),
+          const Center(child: Text('Rewards')),
+          const Receipts(),
           Profile(),
         ],
       ),
@@ -60,18 +61,18 @@ class _HomeScreenState extends State<HomeScreen> {
             label: 'Home'
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.search, color: Colors.grey),
-            activeIcon: Icon(Icons.search, color: Color(0xFF036086),),
+            icon: Icon(Icons.list_alt_outlined, color: Colors.grey),
+            activeIcon: Icon(Icons.list_alt_outlined, color: Color(0xFF036086),),
             label: 'Rewards',
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.notifications, color: Colors.grey),
-            activeIcon: Icon(Icons.notifications, color: Color(0xFF036086),),
+            icon: Icon(Icons.receipt, color: Colors.grey),
+            activeIcon: Icon(Icons.receipt, color: Color(0xFF036086),),
             label: 'Receipt'
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.notifications, color: Colors.grey,),
-            activeIcon: Icon(Icons.notifications, color: Color(0xFF036086),),
+            icon: Icon(Icons.person, color: Colors.grey,),
+            activeIcon: Icon(Icons.person, color: Color(0xFF036086),),
             label: 'Profile'
           ),
         ] 

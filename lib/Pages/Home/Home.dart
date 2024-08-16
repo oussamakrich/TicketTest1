@@ -1,3 +1,6 @@
+import 'package:corail_clone/Pages/Home/HistoriqueDepences.dart';
+import 'package:corail_clone/Pages/Home/Partenaires.dart';
+import 'package:corail_clone/Pages/Home/PointsBonus.dart';
 import 'package:corail_clone/Pages/Home/PointsDepence.dart';
 import 'package:corail_clone/Pages/Home/SalesShow.dart';
 import 'package:flutter/material.dart';
@@ -7,13 +10,16 @@ class Home extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const SingleChildScrollView(
+    return SingleChildScrollView(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            SalesShow(),
-            SizedBox(height: 10),
-            PointsDepnce(),
+            const SalesShow(),
+            const SizedBox(height: 10),
+            const PointsDepnce(),
+            HistoriqueDepences(),
+            Partenaires(),
+            const PointBonus(),
           ],
         ),
     );

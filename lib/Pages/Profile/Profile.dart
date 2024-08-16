@@ -1,3 +1,4 @@
+import 'package:corail_clone/Pages/Home/Home.dart';
 import 'package:flutter/material.dart';
 
 class Profile extends StatelessWidget {
@@ -29,7 +30,8 @@ class Profile extends StatelessWidget {
                     children: [
                       IconButton(
                         icon: const Icon(Icons.arrow_back),
-                        onPressed: () {},
+                        onPressed: () {
+                        },
                         color: Colors.white,
                       ),
                       const Text('Profie', style: TextStyle(color: Colors.white, fontSize: 23, fontWeight: FontWeight.bold),),
