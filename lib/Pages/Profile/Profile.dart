@@ -1,9 +1,30 @@
+import 'package:corail_clone/Auth/RegisterScreen.dart';
 import 'package:corail_clone/Pages/Home/Home.dart';
+import 'package:corail_clone/Providers/UserProvider.dart';
+import 'package:corail_clone/UserData/User.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class Profile extends StatelessWidget {
+
+  const Profile({super.key});
+
   @override
   Widget build(BuildContext context) {
+
+  disconnected() {
+    SharedPreferences.getInstance().then((prefs) {
+      prefs.remove('name');
+      prefs.remove('lastname');
+      prefs.remove('password');
+    });
+    Navigator.push(context, MaterialPageRoute(builder: (context) => const Registerscreen()));
+    }
+
+    final UserProvider userProvider = Provider.of<UserProvider>(context);
+    final User user = userProvider.user;
+
     return Scaffold(
       backgroundColor: Colors.white,
       body: Column(
@@ -50,9 +71,9 @@ class Profile extends StatelessWidget {
                     child: Icon(Icons.person, size: 50, color: Colors.white54),
                   ),
                   const SizedBox(height: 20),
-                  const Text(
-                    'Mustapha Boufouss',
-                    style: TextStyle(color: Colors.white, fontSize: 20),
+                  Text(
+                    '${user.firstName} ${user.lastName}',
+                    style: const TextStyle(color: Colors.white, fontSize: 20),
                   ),
                   const Text(
                     'id : 0012310732003',
@@ -69,12 +90,11 @@ class Profile extends StatelessWidget {
               children: [
                 const Text('Apercu du compte', style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
                 const SizedBox(height: 16),
-                //add route to each ListTile
-                _buildListTile(Icons.person, 'Mon Profile'),
-                _buildListTile(Icons.list, 'Liste de Favoris'),
-                _buildListTile(Icons.lock, 'Changer Mot de passe'),
-                _buildListTile(Icons.language, 'Parametre de Langue'),
-                _buildListTile(Icons.exit_to_app, 'Se Deconnecter'),
+                _buildListTile(Icons.person, 'Mon Profile', () {}),
+                _buildListTile(Icons.list, 'Liste de Favoris', () {}),
+                _buildListTile(Icons.lock, 'Changer Mot de passe', () {}),
+                _buildListTile(Icons.language, 'Parametre de Langue', () {}),
+                _buildListTile(Icons.exit_to_app, 'Se Deconnecter', disconnected),
               ],
             ),
           ),
@@ -83,12 +103,13 @@ class Profile extends StatelessWidget {
     );
   }
 
-  Widget _buildListTile(IconData icon, String title) {
+  Widget _buildListTile(IconData icon, String title, Function callBack) {
     return ListTile(
       leading: Icon(icon, color: const Color(0xFF0088AA)),
       title: Text(title),
       trailing: const Icon(Icons.chevron_right),
-      onTap: () {},
+      onTap: () {callBack();},
     );
   }
 }
+
