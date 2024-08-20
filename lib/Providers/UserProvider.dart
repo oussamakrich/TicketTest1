@@ -1,4 +1,4 @@
-import 'package:corail_clone/UserData/User.dart';
+import 'package:corail_clone/Data/User.dart';
 import 'package:flutter/material.dart';
 
 class UserProvider with ChangeNotifier {

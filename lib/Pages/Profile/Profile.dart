@@ -1,7 +1,7 @@
 import 'package:corail_clone/Auth/RegisterScreen.dart';
 import 'package:corail_clone/Pages/Home/Home.dart';
 import 'package:corail_clone/Providers/UserProvider.dart';
-import 'package:corail_clone/UserData/User.dart';
+import 'package:corail_clone/Data/User.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';

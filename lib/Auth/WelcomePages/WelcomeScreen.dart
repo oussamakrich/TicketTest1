@@ -1,5 +1,6 @@
 import 'package:carousel_slider/carousel_slider.dart';
-import 'package:corail_clone/Auth/RegisterScreen.dart';
+import 'package:corail_clone/Auth/UsagePages/UsagePage.dart';
+import 'package:corail_clone/Data/MyColors.dart';
 import 'package:flutter/material.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
@@ -23,10 +24,9 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
   ];
 
   changePage(){
-    print(_current);
     _controller.nextPage();
     if (_current == show.length - 1) {
-      Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => const Registerscreen()));
+      Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => const Usage()));
       setState(() {
         _current = 0;
       });
@@ -43,28 +43,31 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
         child: Padding(
           padding: const EdgeInsets.all(20.0),
           child: Column(
-            // crossAxisAlignment: CrossAxisAlignment.center,
-            mainAxisAlignment: MainAxisAlignment.center,
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Container(
                 padding: const EdgeInsets.symmetric(vertical: 2, horizontal: 5),
+                width: 150,
                 decoration: BoxDecoration(
                   border: Border.all(color: Colors.grey),
                   borderRadius: BorderRadius.circular(10),
                 ),
                 child: const Row(
-                  mainAxisSize: MainAxisSize.min,
+                  mainAxisSize: MainAxisSize.max,
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: [
-                    Icon(Icons.language, size: 20, color: Color(0xFF036086),),
+                    Icon(Icons.language, size: 17, color: MyColors.mainColor),
                     SizedBox(width: 5),
-                    Text('Français'),
-                    Icon(Icons.arrow_drop_down),
+                    Text('Français', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 17)),
+                    Icon(Icons.arrow_drop_down, size: 17),
                   ],
                 ),
               ),
-              const SizedBox(height: 20),
-              Image.asset('assets/images/logo.png', height: 50),
-              const SizedBox(height: 40),
+              Image.asset(
+                'assets/images/logo.png',
+                 width: MediaQuery.of(context).size.width / 4,
+                 height: MediaQuery.of(context).size.width / 4,
+              ),
               
               CarouselSlider(
                 items: List.generate(show.length, (index) {
@@ -89,46 +92,59 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                 )
               ),
               
-              const SizedBox(height: 30),
+
               AnimatedSmoothIndicator(
                 activeIndex: _current,
                 count: show.length,
                 effect: const WormEffect(
                   dotWidth: 8,
                   dotHeight: 8,
-                  activeDotColor: Color(0xFF036086),
+                  activeDotColor: Colors.blue,
                   dotColor: Colors.grey,
                 ),
               ),
-              const Spacer(),
-              // Continue button
-              ElevatedButton(
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: const Color(0xFF036086),
-                  padding: const EdgeInsets.symmetric(vertical: 15),
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(10),
-                  ),
-                ),
-                onPressed: () {changePage();},
-                child: const Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    Text('Continuer', style: TextStyle(color: Colors.white),),
-                    SizedBox(width: 5),
-                    Icon(Icons.arrow_forward, size: 18, color: Colors.white,),
-                  ],
-                ),
-              ),
-              const SizedBox(height: 20),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
+              Column(
                 children: [
-                  const Text('vous avez déjà un compte?'),
-                  TextButton(
-                    child: const Text('Se connecter', style: TextStyle(color: Color(0xFF036086))),
-                    onPressed: () {},
+                  InkWell(
+                    child: Container(
+                      width: MediaQuery.of(context).size.width * 0.8,
+                      height: 40,
+                      decoration: BoxDecoration(
+                        color: MyColors.mainColor,
+                        borderRadius: BorderRadius.circular(8),
+                      ),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                           Center(
+                            child: Text(
+                              'Continuer',
+                              style: TextStyle(
+                                color: Colors.white,
+                                fontSize: MediaQuery.of(context).size.height / 55,
+                              ),
+                            ),
+                          ),
+                          const SizedBox(width: 10,),
+                          const Icon(
+                              color: Colors.white,
+                              size: 19,
+                              Icons.arrow_forward
+                          ),
+                        ],
+                      ),
+                    ),
+                    onTap: (){changePage();},
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      const Text('vous avez déjà un compte?', style: TextStyle(color:  MyColors.secondaryTextColor)),
+                      TextButton(
+                        child: const Text('Se connecter', style: TextStyle(color: Color(0xFF036086))),
+                        onPressed: () {},
+                      ),
+                    ],
                   ),
                 ],
               ),
