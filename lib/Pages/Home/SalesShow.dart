@@ -22,21 +22,26 @@ class SalesShow extends StatelessWidget {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              const Text('Welcome to Corail', style: TextStyle(fontSize: 20, color: Colors.white, fontWeight: FontWeight.bold),),
+              Text('Welcome to Corail', style: TextStyle(fontSize: MediaQuery.of(context).size.width / 20 , color: Colors.white, fontWeight: FontWeight.bold, fontFamily: 'Poppins-Medium'),),
               Row(
                 children: [
-                  ElevatedButton(
-                    style: ElevatedButton.styleFrom(
-                     backgroundColor: Colors.white,
-                      minimumSize: const Size(10, 35),
-                    ),
-                    onPressed: () {},
-                    child: const Text('+ 0 Pts', style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold),),
+                  InkWell(
+                    onTap: () {},
+                    child: Container(
+                      height: 33,
+                      width: 90,
+                      decoration: const BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: BorderRadius.all(Radius.circular(15)),
+                      ),
+                      child: const Center(
+                        child: Text('+ 0 Pts', style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold, fontSize: 13)),
+                      )),
                   ),
-                  IconButton(
-                    icon: const Icon(Icons.notifications_none),
-                    onPressed: () {},
-                    color: Colors.white,
+                  const SizedBox(width: 5),
+                  InkWell(
+                    onTap: () {},
+                    child: const Icon(Icons.notifications_none, color: Colors.white,),
                   ),
                 ],
               ),                
@@ -74,31 +79,31 @@ class _SalesSliderState extends State<SalesSlider> {
   @override
   Widget build(BuildContext context) {
     return Column(
+      crossAxisAlignment: CrossAxisAlignment.center,
       children: [
-        CarouselSlider(
-            options: CarouselOptions(
-              height: 200,
-              enableInfiniteScroll: false,
-              viewportFraction: 1,
-              onPageChanged: (index, reason) {
-                setState(() {
-                  _current = index;
-                });
-              },
-            ),
-            items: List.generate(images.length, (index) {
-             return Container(
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(10),
-                  image: DecorationImage(
-                    image: AssetImage(images[index]),
-                    fit: BoxFit.contain,
+        Container(
+          width: double.infinity,
+          height: 200,
+          child: PageView(
+            children: images.map((image) {
+              return Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 10),
+                child: Container(
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(10),
                   ),
+                  child: Image.asset(image, fit: BoxFit.contain),
                 ),
               );
-              }
-            )
+            }).toList(),
+            onPageChanged: (index) {
+              setState(() {
+                _current = index;
+              });
+            },
+          ),
         ),
+
         const SizedBox(height: 20),
         AnimatedSmoothIndicator(
           activeIndex: _current,

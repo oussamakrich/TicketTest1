@@ -1,3 +1,4 @@
+import 'package:corail_clone/Data/MyColors.dart';
 import 'package:flutter/material.dart';
 
 class HistoriqueDepences extends StatelessWidget {
@@ -21,10 +22,10 @@ class HistoriqueDepences extends StatelessWidget {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              const Text('Historique Des Depences', style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),),
+              const Text('Historique Des Depences', style: TextStyle(fontSize: 15, fontWeight: FontWeight.bold, fontFamily: 'Poppins-Medium'),),
               TextButton(
                 onPressed: () {},
-                child: const Text('Voir Plus', style: TextStyle(color: Color(0xFF036086), fontSize: 16)),
+                child: const Text('Voir Plus', style: TextStyle(color: MyColors.mainColor, fontSize: 13, fontFamily: 'Poppins-Medium'),),
               ),
             ],
           ),
@@ -52,11 +53,11 @@ class HistoriqueCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
             padding: const EdgeInsets.symmetric(horizontal: 15),
-            width: MediaQuery.of(context).size.width * 0.92,
+            width: MediaQuery.of(context).size.width * 0.8,
             decoration: BoxDecoration(
               color: Colors.white,
               border: Border.all(color: Colors.grey.shade300),
-              borderRadius: const BorderRadius.all(Radius.circular(20)),
+              borderRadius: const BorderRadius.all(Radius.circular(15)),
             ),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -78,13 +79,13 @@ class HistoriqueCard extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.center,
 
                       children: [
-                        Text(historique['name']!, style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold),),
-                        Text(historique['date']!, style: const TextStyle(color: Colors.grey, fontWeight: FontWeight.bold),),
+                        Text(historique['name']!, style: const TextStyle(fontSize: 13, fontWeight: FontWeight.bold),),
+                        Text(historique['date']!, style: const TextStyle(fontSize: 12, color: MyColors.secondaryTextColor, fontWeight: FontWeight.bold),),
                       ],
                     ),
                   ],
                 ),
-                Text(historique['price']!, style: const  TextStyle(fontSize: 16, color: Colors.red, fontWeight: FontWeight.bold),),
+                Text(historique['price']!, style: const  TextStyle(fontSize: 15, color: Colors.red, fontWeight: FontWeight.bold),),
               ],
             )
           );

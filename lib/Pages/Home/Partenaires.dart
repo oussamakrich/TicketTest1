@@ -1,3 +1,4 @@
+import 'package:corail_clone/Data/MyColors.dart';
 import 'package:flutter/material.dart';
 
 class Partenaires extends StatelessWidget {
@@ -8,7 +9,7 @@ class Partenaires extends StatelessWidget {
     {'name' : 'Marjan', 'logo': 'assets/images/marjan.png',},
     {'name' : 'Marjan', 'logo': 'assets/images/marjan.png',},
     {'name' : 'Zara', 'logo': 'assets/images/zara.png',},
-    {'name' : 'Marjan', 'logo': 'assets/images/marjan.png',},
+    // {'name' : 'Marjan', 'logo': 'assets/images/marjan.png',},
   ];
 
   @override
@@ -21,43 +22,38 @@ class Partenaires extends StatelessWidget {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              const Text('Nos Partenaires', style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),),
+              const Text('Nos Partenaires', style: TextStyle(fontSize: 15,fontFamily: 'Poppins-Medium',  fontWeight: FontWeight.bold),),
               TextButton(
                 onPressed: () {},
-                child: const Text('Voir Plus', style: TextStyle(color: Color(0xFF036086), fontSize: 16)),
+                child: const Text('Voir Plus', style: TextStyle(color: MyColors.mainColor, fontSize: 13)),
               ),
             ],
           ),
           InkWell(
-            onTap: (){
-              /// Pass function by argument and implement filter methods
-            },
+            onTap: (){},
             child: Container(
               width: 120,
               height: 30,
               decoration: BoxDecoration(
-                color: const Color(0xFF01597D),
-                borderRadius: BorderRadius.circular(25.0),
+                color: MyColors.mainColor,
+                borderRadius: BorderRadius.circular(25),
               ),
               child: const Center(
-                child: Text(
-                  'Tous Les Categories',
-                  style: TextStyle(
-                    color: Colors.white,
-                    fontSize: 11,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
+                child: Text('Tous Les Categories',style: TextStyle(color: Colors.white, fontSize: 11, fontWeight: FontWeight.bold,)),
               ),
             ),
           ),
+          const SizedBox(height: 10),
           SizedBox(
-            height: 70,
-            child: ListView.separated(
-              scrollDirection: Axis.horizontal,
-              itemCount: 5,
+            height: MediaQuery.of(context).size.height > 600 ? 200 : 150,
+            child: GridView.builder(
+              itemCount: partenairesList.length,
+              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                crossAxisCount: 2,
+                mainAxisSpacing: 10,
+                childAspectRatio: 2.2,
+              ),
               itemBuilder: (context, index) => PartenaireCard(partenaire: partenairesList[index],),
-              separatorBuilder: (context, index) => const SizedBox(width: 10),
             ),
           ),
         ],
@@ -74,7 +70,7 @@ class PartenaireCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      child: Image.asset(partenaire['logo']!, width: 50, height: 70),
+      child: Image.asset(partenaire['logo']!, fit: BoxFit.contain),
     );
   }
 }

@@ -1,3 +1,4 @@
+import 'package:corail_clone/Data/MyColors.dart';
 import 'package:flutter/material.dart';
 
 class PointBonus extends StatelessWidget {
@@ -12,22 +13,38 @@ class PointBonus extends StatelessWidget {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              const Text(
-                'Points Bonus',
-                style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
-              ),
+              const Text('Points Bonus',style: TextStyle(fontSize: 15, fontWeight: FontWeight.bold, fontFamily: 'Poppins-Medium'),),
               TextButton(
                 onPressed: () {},
-                child: const Text(
-                  'Voir Plus',
-                  style: TextStyle(color: Color(0xFF036086), fontSize: 16),
-                ),
+                child: const Text('Voir Plus', style: TextStyle(color: MyColors.mainColor, fontSize: 13, fontFamily: 'Poppins-Medium')),
               ),
             ],
           ),
-        Container(
-          padding: const EdgeInsets.all(15),
-          width: MediaQuery.of(context).size.width * 0.95,
+          SizedBox(
+            height: 200,
+            width: MediaQuery.of(context).size.width,
+            child: ListView.separated(
+              separatorBuilder: (context, index) => const SizedBox(width: 10),
+              scrollDirection: Axis.horizontal,
+              itemCount: 3,
+              itemBuilder: (context, index) => const BonusCard(),
+            ),
+          ),
+          
+        ],
+      ),
+    );
+  }
+}
+
+class BonusCard extends StatelessWidget {
+  const BonusCard({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+          padding: const EdgeInsets.only(left: 15, right: 15, top: 10),
+          width: MediaQuery.of(context).size.width * 0.85,
           decoration: BoxDecoration(
             color: Colors.white,
             border: Border.all(color: Colors.grey.shade300),
@@ -39,8 +56,8 @@ class PointBonus extends StatelessWidget {
               const Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Text('Deal', style: TextStyle(color: Colors.red, fontSize: 16, fontWeight: FontWeight.bold),),
-                  Text('20 Pts', style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),),
+                  Text('Deal', style: TextStyle(color: Colors.red, fontSize: 14, fontWeight: FontWeight.bold),),
+                  Text('20 Pts', style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold),),
                 ]
               ),
               Row(
@@ -55,13 +72,13 @@ class PointBonus extends StatelessWidget {
                     ),
                     const SizedBox(width: 10),
                     SizedBox(
-                      width: MediaQuery.of(context).size.width * 0.6,
+                      width: MediaQuery.of(context).size.width > 300 ? MediaQuery.of(context).size.width * 0.6 : MediaQuery.of(context).size.width * 0.5,
                       child: const Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          Text('Zara Shop Now', style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),),
-                          Text('Latest Trend in clothingfor women, en & kids', overflow: TextOverflow.ellipsis, style: TextStyle(color: Colors.grey, fontWeight: FontWeight.bold),),
+                          Text('Zara Shop Now', style: TextStyle(fontSize: 13, fontWeight: FontWeight.bold),),
+                          Text('Latest Trend in clothingfor women, en & kids', overflow: TextOverflow.ellipsis, style: TextStyle(color: Colors.grey, fontWeight: FontWeight.bold, fontSize: 11),),
                         ],
                       ),
                     ),
@@ -72,15 +89,15 @@ class PointBonus extends StatelessWidget {
                 value: 0.9,
                 minHeight: 5,
                 backgroundColor: Colors.grey.shade300,
-                valueColor:const  AlwaysStoppedAnimation<Color>(Color(0xFF036086)),
+                valueColor:const  AlwaysStoppedAnimation<Color>(MyColors.mainColor),
                 borderRadius: BorderRadius.circular(10)
               ),
               const SizedBox(height: 5),
               const Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Text('Nombre de Points', style: TextStyle(color: Color(0xFF036086), fontSize: 16,)),
-                  Text('20', style: TextStyle(fontSize: 16,)),
+                  Text('Nombre de Points', style: TextStyle(color: MyColors.mainColor, fontSize: 13,)),
+                  Text('20', style: TextStyle(fontSize: 13,)),
                 ]
               ),
               const SizedBox(height: 10),
@@ -88,19 +105,16 @@ class PointBonus extends StatelessWidget {
                 onPressed: () {},
                 style: ElevatedButton.styleFrom(
                   elevation: 0,
+                  backgroundColor: Colors.grey.shade200,
                   minimumSize: const Size(double.infinity, 30),
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(10),
                   ),
                 ),
-               child: const Text('Shop Now', style: TextStyle(color: Color(0xFF036086))),
+               child: const Text('Shop Now', style: TextStyle(color: MyColors.mainColor, fontSize: 14)),
               ),
           ],
         ),
-      ),
-          
-        ],
-      ),
-    );
+      );
   }
 }

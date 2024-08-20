@@ -1,3 +1,4 @@
+import 'package:corail_clone/Data/MyColors.dart';
 import 'package:corail_clone/Pages/Home/Home.dart';
 import 'package:corail_clone/Pages/Profile/Profile.dart';
 import 'package:corail_clone/Pages/Receipt/Receipts.dart';
@@ -36,10 +37,10 @@ class _HomeScreenState extends State<HomeScreen> {
       body: PageView(
         controller: controller,
         onPageChanged: updateIndex,
-        children: [
-          const Home(),
-          const Center(child: Text('Rewards')),
-          const Receipts(),
+        children: const [
+          Home(),
+          Center(child: Text('Rewards')),
+          Receipts(),
           Profile(),
         ],
       ),
@@ -47,7 +48,7 @@ class _HomeScreenState extends State<HomeScreen> {
       floatingActionButton: Padding(
         padding: const EdgeInsets.only(top: 20),
         child: FloatingActionButton(
-          backgroundColor: const Color(0xFF036086),
+          backgroundColor: MyColors.mainColor,
           mini: true,
           shape: const CircleBorder(),
           onPressed: () {},
@@ -59,30 +60,30 @@ class _HomeScreenState extends State<HomeScreen> {
         type: BottomNavigationBarType.fixed,
         showUnselectedLabels: true,
         unselectedItemColor: Colors.grey,
-        selectedItemColor: const Color(0xFF036086),
+        selectedItemColor: MyColors.mainColor,
         currentIndex: _currentIndex,
         onTap: (index) {
           changePage(index);
         },
-        items: const [
+        items: [
           BottomNavigationBarItem(
-            icon: Icon(Icons.home, color: Colors.grey,),
-            activeIcon: Icon(Icons.home, color: Color(0xFF036086),),
+            icon: Icon(Icons.home, color: Colors.grey, size: MediaQuery.of(context).size.width * 0.07,),
+            activeIcon: Icon(Icons.home, color: MyColors.mainColor, size: MediaQuery.of(context).size.width * 0.07,),
             label: 'Home'
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.list_alt_outlined, color: Colors.grey),
-            activeIcon: Icon(Icons.list_alt_outlined, color: Color(0xFF036086),),
+            icon: Icon(Icons.list_alt_outlined, color: Colors.grey, size: MediaQuery.of(context).size.width * 0.07,),
+            activeIcon: Icon(Icons.list_alt_outlined, color: MyColors.mainColor,size: MediaQuery.of(context).size.width * 0.07,),
             label: 'Rewards',
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.receipt, color: Colors.grey),
-            activeIcon: Icon(Icons.receipt, color: Color(0xFF036086),),
+            icon: Icon(Icons.receipt, color: Colors.grey, size: MediaQuery.of(context).size.width * 0.07,),
+            activeIcon: Icon(Icons.receipt, color: MyColors.mainColor, size: MediaQuery.of(context).size.width * 0.07,),
             label: 'Receipt'
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.person, color: Colors.grey,),
-            activeIcon: Icon(Icons.person, color: Color(0xFF036086),),
+            icon: Icon(Icons.person, color: Colors.grey,size: MediaQuery.of(context).size.width * 0.07,),
+            activeIcon: Icon(Icons.person, color: MyColors.mainColor, size: MediaQuery.of(context).size.width * 0.07,),
             label: 'Profile'
           ),
         ] 
