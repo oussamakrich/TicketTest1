@@ -1,5 +1,5 @@
 import 'package:carousel_slider/carousel_slider.dart';
-import 'package:corail_clone/Auth/UsagePages/UsagePage.dart';
+import 'package:corail_clone/InitialPages/UsagePages/UsagePage.dart';
 import 'package:corail_clone/Data/MyColors.dart';
 import 'package:flutter/material.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
