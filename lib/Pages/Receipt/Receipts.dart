@@ -47,6 +47,7 @@ class _ReceiptsState extends State<Receipts> with SingleTickerProviderStateMixin
               children: [
                   const Myappbar(),
                   Container(
+                    height: MediaQuery.of(context).size.height * 0.07,
                     decoration: BoxDecoration(
                       color: Colors.grey.shade300,
                       borderRadius: BorderRadius.circular(30),
