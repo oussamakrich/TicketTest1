@@ -1,4 +1,4 @@
-import 'package:corail_clone/InitialPages/UsagePages/UsagePage.dart';
+import 'package:corail_clone/InitialPages/WelcomePages/WelcomeScreen.dart';
 import 'package:corail_clone/Pages/HomeScreen.dart';
 import 'package:corail_clone/Providers/UserProvider.dart';
 import 'package:flutter/material.dart';
@@ -53,7 +53,7 @@ class _InitialScreenState extends State<InitialScreen> {
     if (prefs.getString('accessToken') != null) {
       Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => const HomeScreen()));
     } else {
-      Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => const Usage()));
+      Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => const WelcomeScreen()));
     }
   }
 

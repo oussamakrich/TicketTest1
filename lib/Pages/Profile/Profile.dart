@@ -16,9 +16,9 @@ class Profile extends StatelessWidget {
 
   disconnected() {
     SharedPreferences.getInstance().then((prefs) {
-      prefs.remove('token');
+      prefs.remove('accessToken');
     });
-    Navigator.push(context, MaterialPageRoute(builder: (context) => const Registerscreen()));
+    Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => const Registerscreen()));
     }
 
     final UserProvider userProvider = Provider.of<UserProvider>(context);
