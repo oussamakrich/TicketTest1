@@ -1,15 +1,15 @@
 import 'package:corail_clone/Auth/AuthUtils/FormHeader.dart';
 import 'package:corail_clone/Auth/AuthUtils/GoogleApple.dart';
+import 'package:corail_clone/Auth/Register/Data/FormProvider.dart';
+import 'package:corail_clone/Auth/SignIn/SignInScreen.dart';
 import 'package:corail_clone/Data/MyColors.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class Emailpassword extends StatefulWidget {
-  Emailpassword({super.key, required this.emailController, required this.passwordController, required this.pageController});
+  const Emailpassword({super.key, required this.pageController});
 
-  TextEditingController emailController;
-  TextEditingController passwordController;
-  PageController pageController;
-
+  final PageController pageController;
 
   @override
   State<Emailpassword> createState() => _EmailpasswordState();
@@ -29,6 +29,9 @@ class _EmailpasswordState extends State<Emailpassword> {
 
   @override
   Widget build(BuildContext context) {
+
+    FormControllersProvider formControllers = Provider.of<FormControllersProvider>(context);
+
     return SingleChildScrollView(
       child: Form(
             key: _formKey,
@@ -53,15 +56,7 @@ class _EmailpasswordState extends State<Emailpassword> {
                           borderSide: BorderSide.none,
                         ),
                       ),
-                      validator: (value) {
-                          if (value == null || value.isEmpty) {
-                            return 'Please enter your Email';
-                          }
-                          return null;
-                        },
-                        onSaved: (value) {
-                          widget.emailController.text = value!;
-                        },
+                      onChanged: (value) => formControllers.emailController.text = value,
                     ),
                   ),
                   const SizedBox(height: 20),
@@ -84,17 +79,8 @@ class _EmailpasswordState extends State<Emailpassword> {
                           icon: Icon(obscureTexts[0] ? Icons.visibility_off : Icons.visibility),
                           onPressed: () =>  _toggleVisibility(0),
                         ),
-                        // suffixIcon: const Icon(Icons.visibility_off),
                       ),
-                      validator: (value) {
-                          if (value == null || value.isEmpty) {
-                            return 'Please enter your password';
-                          }
-                          return null;
-                        },
-                        onSaved: (value) {
-                          // form['password'] = value!;
-                        },
+                      onChanged: (value) => formControllers.passwordController.text = value,
                     ),
                   ),
                   const SizedBox(height: 20),
@@ -118,33 +104,26 @@ class _EmailpasswordState extends State<Emailpassword> {
                           onPressed: () =>  _toggleVisibility(1),
                         ),
                       ),
-                      validator: (value) {
-                          if (value == null || value.isEmpty) {
-                            return 'Please confirm your password';
-                          }
-                          // if (value != form['password']) {
-                          //   return 'Passwords do not match';
-                          // }
-                          return null;
-                        },
+                      onChanged: (value) => formControllers.confirmPasswordController.text = value,
+                      
                     ),
                   ),
                   const SizedBox(height: 20),
                   InkWell(
                     onTap: () async {
+                      if (formControllers.emailController.text.isEmpty || !confirmEmail(formControllers.emailController.text)) {
+                        ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('Entrez une adresse mail valide')));
+                        return;
+                      }
+                      if (formControllers.passwordController.text.isEmpty) {
+                        ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('Entrez un mot de passe')));
+                        return;
+                      }
+                      if (formControllers.confirmPasswordController.text.isEmpty || !confirmPassword(formControllers.passwordController.text, formControllers.confirmPasswordController.text)) {
+                        ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('Les mots de passe ne correspondent pas')));
+                        return;
+                      }
                       widget.pageController.nextPage(duration: const Duration(milliseconds: 400), curve: Curves.easeInOut);
-                      //  _formKey.currentState!.save();
-                      // if (_formKey.currentState!.validate()) {
-                      //   // SharedPreferences prefs = await SharedPreferences.getInstance();
-                      //   // await prefs.setString('name', form['name']!);
-                      //   // await prefs.setString('lastname', form['lastname']!);
-                      //   // await prefs.setString('password', form['password']!);
-                      //   // userProvider.setUser(User(firstName: form['name']!, lastName: form['lastname']!));
-                      //   // Navigator.push(context, MaterialPageRoute(builder : (context) => const HomeScreen()));
-                      // }
-                      // else{
-                      //   print('error');
-                      // }
                     },
                     child: Container(
                       width: MediaQuery.of(context).size.width * 0.9,
@@ -166,7 +145,9 @@ class _EmailpasswordState extends State<Emailpassword> {
                       const Text('vous avez déjà un compte?', style: TextStyle(color: Colors.grey, fontFamily: 'Poppins'),),
                       TextButton(
                         child: const Text('Se Connecter', style: TextStyle(color: Color(0xFF036086), fontFamily: 'Poppins'),),
-                        onPressed: () {},
+                        onPressed: () {
+                          Navigator.push(context, MaterialPageRoute(builder: (context) => const SignIn()));
+                        },
                       ),
                     ],
                   ),
@@ -176,4 +157,12 @@ class _EmailpasswordState extends State<Emailpassword> {
       ),
     );
   }
+}
+
+bool confirmEmail(String email) {
+  return RegExp(r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$').hasMatch(email);
+}
+
+bool confirmPassword(String password, String confirmPassword) {
+  return password == confirmPassword;
 }

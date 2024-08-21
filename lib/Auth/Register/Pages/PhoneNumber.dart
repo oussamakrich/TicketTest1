@@ -1,12 +1,14 @@
 import 'package:corail_clone/Auth/AuthUtils/FormHeader.dart';
+import 'package:corail_clone/Auth/Register/Data/FormProvider.dart';
+import 'package:corail_clone/Auth/Api/registerUser.dart';
 import 'package:corail_clone/Data/MyColors.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class PhoneNumber extends StatefulWidget {
-  PhoneNumber({super.key, required this.pageController, required this.phoneController});
+  const PhoneNumber({super.key, required this.pageController});
 
   final PageController pageController;
-  final phoneController;
 
 
 
@@ -17,9 +19,13 @@ class PhoneNumber extends StatefulWidget {
 class _PhoneNumberState extends State<PhoneNumber> {
 
   final _formKey = GlobalKey<FormState>();
+  bool isLoading = false;
 
   @override
   Widget build(BuildContext context) {
+
+    final formControllers = Provider.of<FormControllersProvider>(context);
+
     return SingleChildScrollView(
       child: Form(
             key: _formKey,
@@ -45,22 +51,32 @@ class _PhoneNumberState extends State<PhoneNumber> {
                           borderSide: BorderSide.none,
                         ),
                       ),
-                      validator: (value) {
-                          if (value == null || value.isEmpty) {
-                            return 'Entrer Voter Numero de Telephone';
-                          }
-                          return null;
-                        },
-                        onSaved: (value) {
-                          widget.phoneController.text = value!;
-                        },
+                      onChanged: (value) => formControllers.phoneController.text = value,
                     ),
                   ),
                   const SizedBox(height: 20),
                   InkWell(
                     onTap: () async {
-                      widget.pageController.nextPage(duration: const Duration(milliseconds: 400), curve: Curves.easeInOut);
+                      if (formControllers.phoneController.text.isEmpty) {
+                        ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('Veuillez entrer votre numéro de téléphone')));
+                      }
+                      else{
+                        setState(() {
+                          isLoading = true;
+                        });
+                        Map<String, String> registerStatus = await registerUser(formControllers);
+                        if (registerStatus['status'] == 'success') {
+                          ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('Utilisateur enregistré avec succès')));
+                          widget.pageController.nextPage(duration: const Duration(milliseconds: 400), curve: Curves.easeInOut);
+                        } else {
+                          ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(registerStatus['message'] ?? 'Ecchec de l\'enregistrement')));
+                        }
+                        setState(() {
+                          isLoading = false;
+                        });
+                      }
                     },
+                    
                     child: Container(
                       width: MediaQuery.of(context).size.width * 0.9,
                       height: MediaQuery.of(context).size.height * 0.05,
@@ -68,7 +84,11 @@ class _PhoneNumberState extends State<PhoneNumber> {
                         color: MyColors.mainColor,
                         borderRadius: BorderRadius.circular(8),
                       ),
-                      child: Center(child: Text('Continuer', style: TextStyle(color: Colors.white, fontSize: MediaQuery.of(context).size.height / 60, fontFamily: 'Poppins'))),
+                      child: Center(child: 
+                        isLoading 
+                        ? const CircularProgressIndicator(valueColor: AlwaysStoppedAnimation<Color>(Colors.white),) 
+                        : Text('Continuer', style: TextStyle(color: Colors.white, fontSize: MediaQuery.of(context).size.height / 60, fontFamily: 'Poppins'))
+                      ),
                     ),
                   ),
           ],

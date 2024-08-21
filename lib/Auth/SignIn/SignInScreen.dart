@@ -1,9 +1,14 @@
+import 'package:corail_clone/Auth/Api/login.dart';
 import 'package:corail_clone/Auth/AuthUtils/FormHeader.dart';
 import 'package:corail_clone/Auth/AuthUtils/GoogleApple.dart';
+import 'package:corail_clone/Auth/Register/Pages/EmailPassword.dart';
 import 'package:corail_clone/Auth/Register/RegisterScreen.dart';
 import 'package:corail_clone/Auth/SignIn/ForgetPassword.dart';
 import 'package:corail_clone/Data/MyColors.dart';
+import 'package:corail_clone/Pages/HomeScreen.dart';
+import 'package:corail_clone/Providers/UserProvider.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class SignIn extends StatefulWidget {
   const SignIn({super.key});
@@ -16,8 +21,15 @@ class _SignInState extends State<SignIn> {
   bool obscureText = true;
   bool _rememberMe = false;
 
+  TextEditingController emailController = TextEditingController();
+  TextEditingController passwordController = TextEditingController();
+  bool isLoading = false;
+
   @override
   Widget build(BuildContext context) {
+
+    UserProvider userProvider = Provider.of<UserProvider>(context);
+
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
@@ -77,14 +89,7 @@ class _SignInState extends State<SignIn> {
                           borderSide: BorderSide.none,
                         ),
                       ),
-                      validator: (value) {
-                          if (value == null || value.isEmpty) {
-                            return 'Please enter your Email';
-                          }
-                          return null;
-                        },
-                        onSaved: (value) {
-                        },
+                      onChanged: (value) => emailController.text = value,
                     ),
                   ),
                   const SizedBox(height: 20),
@@ -110,14 +115,7 @@ class _SignInState extends State<SignIn> {
                           borderSide: BorderSide.none,
                         ),
                       ),
-                      validator: (value) {
-                          if (value == null || value.isEmpty) {
-                            return 'Entrer Mot de passe';
-                          }
-                          return null;
-                        },
-                        onSaved: (value) {
-                        },
+                      onChanged: (value) => passwordController.text = value,
                     ),
                   ),
                   const SizedBox(height: 20),
@@ -165,7 +163,7 @@ class _SignInState extends State<SignIn> {
                         borderRadius: BorderRadius.circular(8),
                       ),
                       child: Center(
-                        child: Text(
+                        child: isLoading ? const CircularProgressIndicator(color: Colors.white, strokeWidth: 3,) : Text(
                                 'Se Conecter',
                                 style: TextStyle(
                                   color: Colors.white,
@@ -174,7 +172,28 @@ class _SignInState extends State<SignIn> {
                               ),
                       ),
                     ),
-                    // onTap: (){changePage();},
+                    onTap: () async {
+                        if (confirmEmail(emailController.text) == false) {
+                          ScaffoldMessenger.of(context).showSnackBar(const SnackBar( content: Text('Entrez une adresse Email valide')));
+                          return;
+                        }
+                        if (emailController.text.isNotEmpty && passwordController.text.isNotEmpty) {
+                          setState(() {
+                            isLoading = true;
+                          });
+                          var response = await login(emailController.text, passwordController.text, userProvider);
+                          setState(() {
+                            isLoading = false;
+                          });
+                          if (response['status'] == 'success') {
+                            Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => const HomeScreen()));
+                          } else {
+                            ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(response['message'])));
+                          }
+                        } else {
+                          ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('Veuillez remplir tous les champs')));
+                        }
+                    },
                   ),
                   const SizedBox(height: 10),
                   const GoogleApple(),

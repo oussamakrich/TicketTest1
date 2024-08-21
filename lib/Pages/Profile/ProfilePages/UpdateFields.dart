@@ -1,6 +1,8 @@
 import 'package:corail_clone/Data/MyColors.dart';
 import 'package:corail_clone/Pages/Profile/ProfilePages/Inputs.dart';
+import 'package:corail_clone/Providers/UserProvider.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class UpdateFields extends StatelessWidget {
   UpdateFields({super.key});
@@ -16,6 +18,8 @@ class UpdateFields extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+
+    UserProvider userProvider = Provider.of<UserProvider>(context);
     return SingleChildScrollView(
       child: Column(
         children: [
@@ -24,28 +28,28 @@ class UpdateFields extends StatelessWidget {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              CustomInput(hintText: 'username', label: 'Nom', controller: nomController, isOne: false),
-              CustomInput(hintText: 'username', label: 'Nom', controller: prenomController, isOne: false),
+              CustomInput(hintText: userProvider.user.nom, label: 'Nom', controller: nomController, isOne: false),
+              CustomInput(hintText: userProvider.user.prenom, label: 'prenom', controller: prenomController, isOne: false),
             ],
           ),
           const SizedBox(height: 10),
-          CustomInput(hintText: 'email@email.com', label: 'Email', controller: emailController, isOne: true),
+          CustomInput(hintText: userProvider.user.email, label: 'Email', controller: emailController, isOne: true),
           const SizedBox(height: 10),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              CustomInput(hintText: 'ville', label: 'ville', controller: villeController, isOne: false),
-              CustomInput(hintText: 'address-xs123', label: 'Adresse', controller: addresseController, isOne: false),
+              CustomInput(hintText: userProvider.user.ville, label: 'ville', controller: villeController, isOne: false),
+              CustomInput(hintText: userProvider.user.address.toString(), label: 'Adresse', controller: addresseController, isOne: false),
             ],
           ),
           const SizedBox(height: 10),
-          CustomInput(hintText: '0684829018', label: 'Telephone', controller: telephoneController, isOne: true),
+          CustomInput(hintText: userProvider.user.telephone, label: 'Telephone', controller: telephoneController, isOne: true),
           const SizedBox(height: 10),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              CustomInput(hintText: 'male', label: 'Sex', controller: sexController, isOne: false),
-              CustomInput(hintText: '2105-52-65', label: 'Date Naissance', controller: dateController, isOne: false),
+              CustomInput(hintText: '', label: 'Sex', controller: sexController, isOne: false),
+              CustomInput(hintText: userProvider.user.dateNaissance.toString(), label: 'Date Naissance', controller: dateController, isOne: false),
             ],
           ),
           SizedBox(height: MediaQuery.of(context).size.height / 20),

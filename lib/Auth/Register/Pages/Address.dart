@@ -1,14 +1,13 @@
 import 'package:corail_clone/Auth/AuthUtils/FormHeader.dart';
+import 'package:corail_clone/Auth/Register/Data/FormProvider.dart';
 import 'package:corail_clone/Data/MyColors.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class Address extends StatefulWidget {
-  const Address({super.key, required this.pageController, required this.cityController, required this.addressController});
+  const Address({super.key, required this.pageController});
 
   final PageController pageController;
-  final cityController;
-  final addressController;
-
   
 
   @override
@@ -22,6 +21,9 @@ class _AddressState extends State<Address> {
   
   @override
   Widget build(BuildContext context) {
+
+    FormControllersProvider formControllers = Provider.of<FormControllersProvider>(context);
+
     return SingleChildScrollView(
       child: Form(
             key: _formKey,
@@ -46,15 +48,7 @@ class _AddressState extends State<Address> {
                           borderSide: BorderSide.none,
                         ),
                       ),
-                      validator: (value) {
-                          if (value == null || value.isEmpty) {
-                            return 'Entrer nom de votre ville';
-                          }
-                          return null;
-                        },
-                        onSaved: (value) {
-                          widget.cityController.text = value!;
-                        },
+                      onChanged: (value) => formControllers.cityController.text = value,
                     ),
                   ),
                   const SizedBox(height: 20),
@@ -64,7 +58,7 @@ class _AddressState extends State<Address> {
                     child: TextFormField(
                       style: TextStyle(color: Colors.black, fontSize: MediaQuery.of(context).size.height / 60),
                       decoration: InputDecoration(
-                        hintText: 'Entrer Votre Prenom',
+                        hintText: 'Entrer Votre Adresse',
                         hintStyle: const TextStyle(color: Colors.grey),
                         filled: true,
                         fillColor: Colors.grey.shade200,
@@ -73,21 +67,18 @@ class _AddressState extends State<Address> {
                           borderSide: BorderSide.none,
                         ),
                       ),
-                      validator: (value) {
-                          if (value == null || value.isEmpty) {
-                            return 'Please enter your Prenom';
-                          }
-                          return null;
-                        },
-                        onSaved: (value) {
-                          widget.addressController.text = value!;
-                        },
+                      onChanged: (value) => formControllers.addressController.text = value,
                     ),
                   ),
                   const SizedBox(height: 20),
                   InkWell(
                     onTap: () async {
-                      widget.pageController.nextPage(duration: const Duration(milliseconds: 400), curve: Curves.easeInOut);
+                      if (formControllers.addressController.text.isEmpty || formControllers.cityController.text.isEmpty) {
+                        ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('Veuillez remplir tous les champs')));
+                      }
+                      else{
+                        widget.pageController.nextPage(duration: const Duration(milliseconds: 500), curve: Curves.easeIn);
+                      }
                     },
                     child: Container(
                       width: MediaQuery.of(context).size.width * 0.9,

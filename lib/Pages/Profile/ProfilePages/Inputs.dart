@@ -38,14 +38,7 @@ class CustomInput extends StatelessWidget {
                   ),
                   suffixIcon: const Icon(Icons.edit, color: Colors.grey),
                 ),
-                validator: (value) {
-                    if (value == null || value.isEmpty) {
-                      return '';
-                    }
-                    return null;
-                  },
-                  onSaved: (value) {
-                  },
+                
               ),
             ),
         ],

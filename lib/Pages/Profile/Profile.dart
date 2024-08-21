@@ -15,9 +15,7 @@ class Profile extends StatelessWidget {
 
   disconnected() {
     SharedPreferences.getInstance().then((prefs) {
-      prefs.remove('name');
-      prefs.remove('lastname');
-      prefs.remove('password');
+      prefs.remove('user');
     });
     Navigator.push(context, MaterialPageRoute(builder: (context) => const Registerscreen()));
     }
@@ -73,12 +71,12 @@ class Profile extends StatelessWidget {
                     Column(
                       children: [
                         Text(
-                          '${user.firstName} ${user.lastName}',
+                          '${user.nom} ${user.prenom}',
                           style: const TextStyle(color: Colors.white, fontSize: 20),
                         ),
-                        const Text(
-                          'id : 0012310732003',
-                          style: TextStyle(color: Colors.white70),
+                        Text(
+                          'id : ${user.id.toString()}',
+                          style: const TextStyle(color: Colors.white70),
                         ),
                       ],
                     ),

@@ -1,7 +1,13 @@
+import 'package:corail_clone/Auth/Api/Otp.dart';
+import 'package:corail_clone/Auth/Api/login.dart';
 import 'package:corail_clone/Auth/AuthUtils/FormHeader.dart';
+import 'package:corail_clone/Auth/Register/Data/FormProvider.dart';
 import 'package:corail_clone/Data/MyColors.dart';
+import 'package:corail_clone/Pages/HomeScreen.dart';
+import 'package:corail_clone/Providers/UserProvider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_otp_text_field/flutter_otp_text_field.dart';
+import 'package:provider/provider.dart';
 
 class Otp extends StatefulWidget {
   const Otp({super.key});
@@ -11,8 +17,15 @@ class Otp extends StatefulWidget {
 }
 
 class _OtpState extends State<Otp> {
+  String code = '';
+
+  
   @override
   Widget build(BuildContext context) {
+
+    FormControllersProvider formControllers = Provider.of<FormControllersProvider>(context);
+    UserProvider userProvider = Provider.of<UserProvider>(context);
+    
     return SingleChildScrollView(
       child: Form(
             // key: _formKey,
@@ -29,15 +42,18 @@ class _OtpState extends State<Otp> {
                     focusedBorderColor: MyColors.mainColor,
                     textStyle: TextStyle(color: Colors.black, fontSize: MediaQuery.of(context).size.height / 60),
                     onSubmit: (String verificationCode){
+                      setState(() {
+                        code = verificationCode;
+                      });
                       showDialog(
-                          context: context,
-                          builder: (context){
-                            return AlertDialog(
-                              title: const Text("Verification Code"),
-                              content: Text('Code entered is $verificationCode'),
-                            );
-                          }
-                    );}
+                      context: context,
+                      builder: (context){
+                        return AlertDialog(
+                          title: const Text("Verification Code"),
+                          content: Text('Code entered is $verificationCode'),
+                        );
+                      });
+                    }
                   ),
 
                   const SizedBox(height: 20),
@@ -59,7 +75,17 @@ class _OtpState extends State<Otp> {
                   const SizedBox(height: 20),
                   InkWell(
                     onTap: () async {
-                      // widget.pageController.nextPage(duration: const Duration(milliseconds: 400), curve: Curves.easeInOut);
+                      var status = await checkOtp(code);
+                      if (status['status'] == 'success') {
+                        var response = await login(formControllers.emailController.text, formControllers.passwordController.text, userProvider);
+                        if (response['status'] == 'success') {
+                          Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => const HomeScreen()));
+                        } else {
+                          ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(response['message'])));
+                        }
+                      } else {
+                        ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(status['message'])));
+                      }
                     },
                     child: Container(
                       width: MediaQuery.of(context).size.width * 0.9,
