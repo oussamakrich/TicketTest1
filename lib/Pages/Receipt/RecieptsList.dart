@@ -20,49 +20,52 @@ class ReceiptsList extends StatelessWidget {
           children: [
             const SizedBox(height: 10),
             const ReceitpsHeader(),
-            Column(
-              children: lists.entries.map((entry) {
-                final date = entry.key;
-                final list = entry.value;
-                return Column(
-                  children: [
-                    ListTile(
-                      title: Text(date, style: TextStyle(fontWeight: FontWeight.bold, fontSize: MediaQuery.of(context).size.height / 55),),
-                    ),
-                    ListView.separated(
-                      separatorBuilder: (context, index) => const SizedBox(height: 10),
-                      padding: const EdgeInsets.all(0),
-                      shrinkWrap: true,
-                      physics: const NeverScrollableScrollPhysics(),
-                      itemBuilder: (context, index) {
-                        final item = list[index];
-                        return Container(
-                            decoration: BoxDecoration(
-                              color: Colors.grey.shade200,
-                              borderRadius: const BorderRadius.all(Radius.circular(10)),
-                              border: Border.all(color: Colors.grey.shade300),
-                            ),
-                            child: ListTile(
-                              leading : ClipOval(
-                               child: Image.asset(item['logo'] ?? '',width: 50,height: 70,fit: BoxFit.contain)
+            Padding(
+              padding: const EdgeInsets.only(bottom: 15),
+              child: Column(
+                children: lists.entries.map((entry) {
+                  final date = entry.key;
+                  final list = entry.value;
+                  return Column(
+                    children: [
+                      ListTile(
+                        title: Text(date, style: TextStyle(fontWeight: FontWeight.bold, fontSize: MediaQuery.of(context).size.height / 55),),
+                      ),
+                      ListView.separated(
+                        separatorBuilder: (context, index) => const SizedBox(height: 10),
+                        padding: const EdgeInsets.all(0),
+                        shrinkWrap: true,
+                        physics: const NeverScrollableScrollPhysics(),
+                        itemBuilder: (context, index) {
+                          final item = list[index];
+                          return Container(
+                              decoration: BoxDecoration(
+                                color: Colors.grey.shade200,
+                                borderRadius: const BorderRadius.all(Radius.circular(10)),
+                                border: Border.all(color: Colors.grey.shade300),
                               ),
-                              title: Text(item['name'] ?? ''),
-                              subtitle: Row(
-                                children: [
-                                  Expanded(
-                                    child: Text(item['time'] ?? '', overflow: TextOverflow.ellipsis),
-                                  ),
-                                ],
+                              child: ListTile(
+                                leading : ClipOval(
+                                 child: Image.asset(item['logo'] ?? '',width: 50,height: 70,fit: BoxFit.contain)
+                                ),
+                                title: Text(item['name'] ?? ''),
+                                subtitle: Row(
+                                  children: [
+                                    Expanded(
+                                      child: Text(item['time'] ?? '', overflow: TextOverflow.ellipsis),
+                                    ),
+                                  ],
+                                ),
+                              trailing: Text(item['amount'] ?? '', style: const TextStyle(color: Colors.red, fontWeight: FontWeight.bold),),
                               ),
-                            trailing: Text(item['amount'] ?? '', style: const TextStyle(color: Colors.red, fontWeight: FontWeight.bold),),
-                            ),
-                          );
-                      },
-                      itemCount: list.length,
-                    ),
-                  ],
-                );
-              }).toList(),
+                            );
+                        },
+                        itemCount: list.length,
+                      ),
+                    ],
+                  );
+                }).toList(),
+              ),
             ),
           ],
         ),
