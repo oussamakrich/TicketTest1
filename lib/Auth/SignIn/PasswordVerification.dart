@@ -1,19 +1,20 @@
-import 'package:corail_clone/Auth/AuthUtils/FormHeader.dart';
-import 'package:corail_clone/Auth/Register/Pages/EmailPassword.dart';
 import 'package:corail_clone/Auth/Api/ResetPasswordUtils.dart';
-import 'package:corail_clone/Auth/SignIn/PasswordVerification.dart';
+import 'package:corail_clone/Auth/AuthUtils/FormHeader.dart';
+import 'package:corail_clone/Auth/SignIn/ResetPassword.dart';
 import 'package:corail_clone/Data/MyColors.dart';
 import 'package:flutter/material.dart';
 
-class ForgetPassword extends StatefulWidget {
-  const ForgetPassword({super.key});
+class PasswordVerification extends StatefulWidget {
+  PasswordVerification({super.key, required this.emailController});
 
+  TextEditingController emailController;
   @override
-  State<ForgetPassword> createState() => _ForgetPasswordState();
+  State<PasswordVerification> createState() => _PasswordVerificationState();
 }
 
-class _ForgetPasswordState extends State<ForgetPassword> {
-  TextEditingController emailTelephoneController = TextEditingController();
+class _PasswordVerificationState extends State<PasswordVerification> {
+  TextEditingController codeController = TextEditingController();
+
   bool isLoading = false;
 
   @override
@@ -55,13 +56,13 @@ class _ForgetPasswordState extends State<ForgetPassword> {
                  height: MediaQuery.of(context).size.width / 4,
               ),
               const SizedBox(height: 20),
-              FormHeader(title: 'Mot de passe oublié ?', subtitle: 'Entrez simplement votre adresse e-mail associé à votre compte. Nous vous enverrons un lien ou un code de vérification pour réinitialiser votre mot de passe.'),
+              FormHeader(title: 'Entrez le Code de verification ?', subtitle: "Veuillez entrer le code de vérification que nous vous avons envoyé par e-mail ou par SMS. Si vous n'avez pas reçu le code, vérifiez vos spams ou demandez un nouvel envoi."),
               const SizedBox(height: 20),
               
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text('Email', style: TextStyle(color: Colors.grey, fontSize: MediaQuery.of(context).size.height / 60)),
+                  Text('Code de Verification', style: TextStyle(color: Colors.grey, fontSize: MediaQuery.of(context).size.height / 60)),
                   const SizedBox(height: 5),
                   SizedBox(
                     width: MediaQuery.of(context).size.width * 0.9,
@@ -69,7 +70,7 @@ class _ForgetPasswordState extends State<ForgetPassword> {
                     child: TextFormField(
                       style: TextStyle(color: Colors.black, fontSize: MediaQuery.of(context).size.height / 60),
                       decoration: InputDecoration(
-                        hintText: 'Email',
+                        hintText: 'Code de Verification',
                         hintStyle: const TextStyle(color: Colors.grey),
                         filled: true,
                         fillColor: Colors.grey.shade200,
@@ -78,7 +79,7 @@ class _ForgetPasswordState extends State<ForgetPassword> {
                           borderSide: BorderSide.none,
                         ),
                       ),
-                      onChanged: (value) =>  emailTelephoneController.text = value,
+                      onChanged: (value) =>  codeController.text = value,
                     ),
                   ),
                 ],
@@ -105,20 +106,20 @@ class _ForgetPasswordState extends State<ForgetPassword> {
                   ),
                 ),
                 onTap: () async{
-                  if (emailTelephoneController.text.isEmpty || !confirmEmail(emailTelephoneController.text)) {
+                  if (codeController.text.isEmpty) {
                     ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('Veuillez entrer votre email')));
                   }
                   else{
                     setState(() {
                       isLoading = true;
                     });
-                    var status = await requestReset(emailTelephoneController.text);
+                    var status = await verifyReset(widget.emailController.text, codeController.text);
                     setState(() {
                       isLoading = false;
                     });
                     if (status['status'] == 'success') {
-                      Navigator.push(context, MaterialPageRoute(builder: (context) => PasswordVerification(emailController: emailTelephoneController)));
                       ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(status['message'])));
+                      Navigator.push(context, MaterialPageRoute(builder: (context) => ResetPassword(emailController: widget.emailController, codeController: codeController,)));
                     }
                     else{
                       ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(status['message'])));

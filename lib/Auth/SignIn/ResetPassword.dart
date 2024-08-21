@@ -1,20 +1,25 @@
-import 'package:corail_clone/Auth/AuthUtils/FormHeader.dart';
-import 'package:corail_clone/Auth/Register/Pages/EmailPassword.dart';
 import 'package:corail_clone/Auth/Api/ResetPasswordUtils.dart';
-import 'package:corail_clone/Auth/SignIn/PasswordVerification.dart';
+import 'package:corail_clone/Auth/AuthUtils/FormHeader.dart';
+import 'package:corail_clone/Auth/SignIn/SignInScreen.dart';
 import 'package:corail_clone/Data/MyColors.dart';
 import 'package:flutter/material.dart';
 
-class ForgetPassword extends StatefulWidget {
-  const ForgetPassword({super.key});
+class ResetPassword extends StatefulWidget {
+  ResetPassword({super.key, required this.emailController, required this.codeController});
+
+  TextEditingController emailController;
+  TextEditingController codeController;
 
   @override
-  State<ForgetPassword> createState() => _ForgetPasswordState();
+  State<ResetPassword> createState() => _ResetPasswordState();
 }
 
-class _ForgetPasswordState extends State<ForgetPassword> {
-  TextEditingController emailTelephoneController = TextEditingController();
+class _ResetPasswordState extends State<ResetPassword> {
+  TextEditingController passwordController = TextEditingController();
+
+  TextEditingController confirmPasswordController = TextEditingController();
   bool isLoading = false;
+
 
   @override
   Widget build(BuildContext context) {
@@ -55,13 +60,13 @@ class _ForgetPasswordState extends State<ForgetPassword> {
                  height: MediaQuery.of(context).size.width / 4,
               ),
               const SizedBox(height: 20),
-              FormHeader(title: 'Mot de passe oublié ?', subtitle: 'Entrez simplement votre adresse e-mail associé à votre compte. Nous vous enverrons un lien ou un code de vérification pour réinitialiser votre mot de passe.'),
+              FormHeader(title: 'Réinitialisation du Mot de Passe', subtitle: "Veuillez entrer un nouveau mot de passe pour votre compte. Assurez-vous qu'il est sécurisé et facile à retenir."),
               const SizedBox(height: 20),
               
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text('Email', style: TextStyle(color: Colors.grey, fontSize: MediaQuery.of(context).size.height / 60)),
+                  Text('Mot de passe', style: TextStyle(color: Colors.grey, fontSize: MediaQuery.of(context).size.height / 60)),
                   const SizedBox(height: 5),
                   SizedBox(
                     width: MediaQuery.of(context).size.width * 0.9,
@@ -69,7 +74,7 @@ class _ForgetPasswordState extends State<ForgetPassword> {
                     child: TextFormField(
                       style: TextStyle(color: Colors.black, fontSize: MediaQuery.of(context).size.height / 60),
                       decoration: InputDecoration(
-                        hintText: 'Email',
+                        hintText: 'Mot de passe',
                         hintStyle: const TextStyle(color: Colors.grey),
                         filled: true,
                         fillColor: Colors.grey.shade200,
@@ -78,7 +83,28 @@ class _ForgetPasswordState extends State<ForgetPassword> {
                           borderSide: BorderSide.none,
                         ),
                       ),
-                      onChanged: (value) =>  emailTelephoneController.text = value,
+                      onChanged: (value) =>  passwordController.text = value,
+                    ),
+                  ),
+                  const SizedBox(height: 30),
+                  Text('Confirmer mot de passe', style: TextStyle(color: Colors.grey, fontSize: MediaQuery.of(context).size.height / 60)),
+                  const SizedBox(height: 5),
+                  SizedBox(
+                    width: MediaQuery.of(context).size.width * 0.9,
+                    height: MediaQuery.of(context).size.height * 0.06,
+                    child: TextFormField(
+                      style: TextStyle(color: Colors.black, fontSize: MediaQuery.of(context).size.height / 60),
+                      decoration: InputDecoration(
+                        hintText: 'Confirmer mot de passe',
+                        hintStyle: const TextStyle(color: Colors.grey),
+                        filled: true,
+                        fillColor: Colors.grey.shade200,
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(8),
+                          borderSide: BorderSide.none,
+                        ),
+                      ),
+                      onChanged: (value) =>  confirmPasswordController.text = value,
                     ),
                   ),
                 ],
@@ -94,7 +120,7 @@ class _ForgetPasswordState extends State<ForgetPassword> {
                     borderRadius: BorderRadius.circular(8),
                   ),
                   child: Center(
-                    child: isLoading ? const CircularProgressIndicator(color: Colors.white,) : Text(
+                    child: isLoading ? const CircularProgressIndicator(color: Colors.white) : Text(
                       'Suivant',
                       style: TextStyle(
                         color: Colors.white,
@@ -105,20 +131,23 @@ class _ForgetPasswordState extends State<ForgetPassword> {
                   ),
                 ),
                 onTap: () async{
-                  if (emailTelephoneController.text.isEmpty || !confirmEmail(emailTelephoneController.text)) {
-                    ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('Veuillez entrer votre email')));
+                  if (passwordController.text.isEmpty || confirmPasswordController.text.isEmpty) {
+                    ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('Veuillez entrer votre nouveau mot de passe')));
+                  }
+                  else if (passwordController.text != confirmPasswordController.text) {
+                    ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('Les mots de passe ne correspondent pas')));
                   }
                   else{
                     setState(() {
                       isLoading = true;
                     });
-                    var status = await requestReset(emailTelephoneController.text);
+                    var status = await updatePassword(widget.emailController.text, widget.codeController.text, passwordController.text);
                     setState(() {
                       isLoading = false;
                     });
                     if (status['status'] == 'success') {
-                      Navigator.push(context, MaterialPageRoute(builder: (context) => PasswordVerification(emailController: emailTelephoneController)));
                       ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(status['message'])));
+                      Navigator.push(context, MaterialPageRoute(builder: (context) => const SignIn()));
                     }
                     else{
                       ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(status['message'])));
