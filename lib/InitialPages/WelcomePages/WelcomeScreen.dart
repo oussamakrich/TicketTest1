@@ -77,9 +77,9 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                          children: [
                             Image.asset(item['image']!, height: 150),
                             const SizedBox(height: 30),
-                            Text(item['title']!, style: const TextStyle(fontSize: 24, fontWeight: FontWeight.bold),textAlign: TextAlign.center,),
+                            Text(item['title']!, style: TextStyle(fontSize:  MediaQuery.of(context).size.height / 40, fontWeight: FontWeight.bold),textAlign: TextAlign.center,),
                             const SizedBox(height: 20),
-                            Text(item['more']!,style: TextStyle(color: Colors.grey[600]), textAlign: TextAlign.center),
+                            Text(item['more']!,style: TextStyle(color: Colors.grey[600], fontSize: MediaQuery.of(context).size.height / 60), textAlign: TextAlign.center),
                            ]
                       );
                     }
@@ -109,7 +109,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                   InkWell(
                     child: Container(
                       width: MediaQuery.of(context).size.width * 0.8,
-                      height: 40,
+                      height: MediaQuery.of(context).size.height * 0.05,
                       decoration: BoxDecoration(
                         color: MyColors.mainColor,
                         borderRadius: BorderRadius.circular(8),
@@ -140,9 +140,9 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      const Text('vous avez déjà un compte?', style: TextStyle(color:  MyColors.secondaryTextColor)),
+                      Text('vous avez déjà un compte?', style: TextStyle(color:  MyColors.secondaryTextColor, fontSize: MediaQuery.of(context).size.height / 60)),
                       TextButton(
-                        child: const Text('Se connecter', style: TextStyle(color: Color(0xFF036086))),
+                        child: Text('Se connecter', style: TextStyle(color: Color(0xFF036086), fontSize: MediaQuery.of(context).size.height / 60)),
                         onPressed: () {
                           Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => const SignIn()));
                         },

@@ -17,7 +17,7 @@ class GoogleApple extends StatelessWidget {
             children: [
               SizedBox(
                 height: MediaQuery.of(context).size.height * 0.05,
-                width: MediaQuery.of(context).size.width * 0.4,
+                width: MediaQuery.of(context).size.width * 0.36,
                 child: OutlinedButton(
                   onPressed: () {},
                   style: OutlinedButton.styleFrom(
@@ -29,7 +29,7 @@ class GoogleApple extends StatelessWidget {
               ),
               const SizedBox(width: 15),
               SizedBox(
-                width: MediaQuery.of(context).size.width * 0.4,
+                width: MediaQuery.of(context).size.width * 0.36,
                 height: MediaQuery.of(context).size.height * 0.05,
                 child: OutlinedButton(
                   onPressed: () {},

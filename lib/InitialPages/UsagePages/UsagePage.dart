@@ -116,11 +116,11 @@ class _UsageState extends State<Usage> {
                   children: [
                     InkWell(
                       onTap: () {retourPage();},
-                      child: const Row(
+                      child: Row(
                         children: [
-                          Icon(Icons.arrow_back, size: 20, color: MyColors.mainColor),
-                          SizedBox(width: 10),
-                          Text('Retour', style: TextStyle(color: MyColors.mainColor, fontSize: 16, fontWeight: FontWeight.w500),),
+                          const Icon(Icons.arrow_back, size: 20, color: MyColors.mainColor),
+                          const SizedBox(width: 10),
+                          Text('Retour', style: TextStyle(color: MyColors.mainColor, fontSize: MediaQuery.of(context).size.height / 55, fontWeight: FontWeight.w500),),
                           // SizedBox(width: 10),
                         ],
                       ),
@@ -129,8 +129,8 @@ class _UsageState extends State<Usage> {
                       onTap: () {changePage();},
 
                       child: Container(
-                        width: MediaQuery.of(context).size.width * 0.6,
-                        height: 40,
+                        width: MediaQuery.of(context).size.width * (MediaQuery.of(context).size.width > 350 ? 0.6 : 0.5),
+                        height: MediaQuery.of(context).size.height * 0.05,
                         decoration: BoxDecoration(
                           color: MyColors.mainColor,
                           borderRadius: BorderRadius.circular(8),
@@ -151,9 +151,9 @@ class _UsageState extends State<Usage> {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    const Text('Apprenez à utiliser Corail en vidéo', style: TextStyle(color: MyColors.secondaryTextColor)),
+                    Text('Apprenez à utiliser Corail en vidéo', style: TextStyle(color: MyColors.secondaryTextColor, fontSize: MediaQuery.of(context).size.height / 60)),
                     TextButton(
-                      child: const Text('Regarder', style: TextStyle(color: MyColors.mainColor)),
+                      child: Text('Regarder', style: TextStyle(color: MyColors.mainColor, fontSize: MediaQuery.of(context).size.height / 60)),
                       onPressed: () {},
                     ),
                   ],

@@ -143,9 +143,9 @@ class _EmailpasswordState extends State<Emailpassword> {
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                const Text('vous avez déjà un compte?', style: TextStyle(color: Colors.grey, fontFamily: 'Poppins'),),
+                Text('vous avez déjà un compte?', style: TextStyle(color: Colors.grey, fontFamily: 'Poppins', fontSize: MediaQuery.of(context).size.height / 60),),
                 TextButton(
-                  child: const Text('Se Connecter', style: TextStyle(color: Color(0xFF036086), fontFamily: 'Poppins'),),
+                  child: Text('Se Connecter', style: TextStyle(color: Color(0xFF036086), fontFamily: 'Poppins',fontSize: MediaQuery.of(context).size.height / 60 ),),
                   onPressed: () {
                     Navigator.push(context, MaterialPageRoute(builder: (context) => const SignIn()));
                   },

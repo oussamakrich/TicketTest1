@@ -144,7 +144,7 @@ class _SignInState extends State<SignIn> {
                         ],
                       ),
                       InkWell(
-                        child: const Text('Mot de passe oublié?', style: TextStyle(color: MyColors.mainColor, fontSize: 13, fontWeight: FontWeight.bold)),
+                        child: Text('Mot de passe oublié?', style: TextStyle(color: MyColors.mainColor, fontSize: MediaQuery.of(context).size.height / 60, fontWeight: FontWeight.bold)),
                         onTap: () {Navigator.push(context, MaterialPageRoute(builder: (context) => const ForgetPassword()));},
                       ),
                     ],
@@ -201,9 +201,9 @@ class _SignInState extends State<SignIn> {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      const Text("vous n'avez pas un compte?", style: TextStyle(color:  MyColors.secondaryTextColor)),
+                      Text("vous n'avez pas un compte?", style: TextStyle(color:  MyColors.secondaryTextColor, fontSize: MediaQuery.of(context).size.height / 60 )),
                       TextButton(
-                        child: const Text('Créer un compte', style: TextStyle(color: Color(0xFF036086))),
+                        child: Text('Créer un compte', style: TextStyle(color: Color(0xFF036086), fontSize: MediaQuery.of(context).size.height / 60 )),
                         onPressed: () {Navigator.push(context, MaterialPageRoute(builder: (context) => const Registerscreen()));},
                       ),
                     ],
