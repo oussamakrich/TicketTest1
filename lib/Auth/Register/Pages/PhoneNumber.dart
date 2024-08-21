@@ -17,8 +17,6 @@ class PhoneNumber extends StatefulWidget {
 }
 
 class _PhoneNumberState extends State<PhoneNumber> {
-
-  final _formKey = GlobalKey<FormState>();
   bool isLoading = false;
 
   @override
@@ -27,74 +25,71 @@ class _PhoneNumberState extends State<PhoneNumber> {
     final formControllers = Provider.of<FormControllersProvider>(context);
 
     return SingleChildScrollView(
-      child: Form(
-            key: _formKey,
-            child: Padding(
-              padding: const EdgeInsets.all(16.0),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  FormHeader(title: 'Entrer votre numéro de téléphone', subtitle: "Introduisez votre adresse email ou telephone pour réinitialisation du mot de passe."),
-                  SizedBox(
-                    width: MediaQuery.of(context).size.width * 0.9,
-                    height: MediaQuery.of(context).size.height * 0.06,
-                    child: TextFormField(
-                      keyboardType: TextInputType.number,
-                      style: TextStyle(color: Colors.black, fontSize: MediaQuery.of(context).size.height / 60),
-                      decoration: InputDecoration(
-                        hintText: 'Entrez Votre Numero de Telephone',
-                        hintStyle: const TextStyle(color: Colors.grey),
-                        filled: true,
-                        fillColor: Colors.grey.shade200,
-                        border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(8),
-                          borderSide: BorderSide.none,
-                        ),
-                      ),
-                      onChanged: (value) => formControllers.phoneController.text = value,
-                    ),
+      child: Padding(
+        padding: const EdgeInsets.all(16.0),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            FormHeader(title: 'Entrer votre numéro de téléphone', subtitle: "Introduisez votre adresse email ou telephone pour réinitialisation du mot de passe."),
+            SizedBox(
+              width: MediaQuery.of(context).size.width * 0.9,
+              height: MediaQuery.of(context).size.height * 0.06,
+              child: TextFormField(
+                keyboardType: TextInputType.number,
+                style: TextStyle(color: Colors.black, fontSize: MediaQuery.of(context).size.height / 60),
+                decoration: InputDecoration(
+                  hintText: 'Entrez Votre Numero de Telephone',
+                  hintStyle: const TextStyle(color: Colors.grey),
+                  filled: true,
+                  fillColor: Colors.grey.shade200,
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(8),
+                    borderSide: BorderSide.none,
                   ),
-                  const SizedBox(height: 20),
-                  InkWell(
-                    onTap: () async {
-                      if (formControllers.phoneController.text.isEmpty) {
-                        ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('Veuillez entrer votre numéro de téléphone')));
-                      }
-                      else{
-                        setState(() {
-                          isLoading = true;
-                        });
-                        Map<String, String> registerStatus = await registerUser(formControllers);
-                        if (registerStatus['status'] == 'success') {
-                          ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('Utilisateur enregistré avec succès')));
-                          widget.pageController.nextPage(duration: const Duration(milliseconds: 400), curve: Curves.easeInOut);
-                        } else {
-                          ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(registerStatus['message'] ?? 'Ecchec de l\'enregistrement')));
-                        }
-                        setState(() {
-                          isLoading = false;
-                        });
-                      }
-                    },
-                    
-                    child: Container(
-                      width: MediaQuery.of(context).size.width * 0.9,
-                      height: MediaQuery.of(context).size.height * 0.05,
-                      decoration: BoxDecoration(
-                        color: MyColors.mainColor,
-                        borderRadius: BorderRadius.circular(8),
-                      ),
-                      child: Center(child: 
-                        isLoading 
-                        ? const CircularProgressIndicator(valueColor: AlwaysStoppedAnimation<Color>(Colors.white),) 
-                        : Text('Continuer', style: TextStyle(color: Colors.white, fontSize: MediaQuery.of(context).size.height / 60, fontFamily: 'Poppins'))
-                      ),
-                    ),
-                  ),
-          ],
-          ),
-          )
-      ),
+                ),
+                onChanged: (value) => formControllers.phoneController.text = value,
+              ),
+            ),
+            const SizedBox(height: 20),
+            InkWell(
+              onTap: () async {
+                if (formControllers.phoneController.text.isEmpty) {
+                  ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('Veuillez entrer votre numéro de téléphone')));
+                }
+                else{
+                  setState(() {
+                    isLoading = true;
+                  });
+                  Map<String, String> registerStatus = await registerUser(formControllers);
+                  if (registerStatus['status'] == 'success') {
+                    ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('Utilisateur enregistré avec succès')));
+                    widget.pageController.nextPage(duration: const Duration(milliseconds: 400), curve: Curves.easeInOut);
+                  } else {
+                    ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(registerStatus['message'] ?? 'Ecchec de l\'enregistrement')));
+                  }
+                  setState(() {
+                    isLoading = false;
+                  });
+                }
+              },
+              
+              child: Container(
+                width: MediaQuery.of(context).size.width * 0.9,
+                height: MediaQuery.of(context).size.height * 0.05,
+                decoration: BoxDecoration(
+                  color: MyColors.mainColor,
+                  borderRadius: BorderRadius.circular(8),
+                ),
+                child: Center(child: 
+                  isLoading 
+                  ? const CircularProgressIndicator(valueColor: AlwaysStoppedAnimation<Color>(Colors.white),) 
+                  : Text('Continuer', style: TextStyle(color: Colors.white, fontSize: MediaQuery.of(context).size.height / 60, fontFamily: 'Poppins'))
+                ),
+              ),
+            ),
+                ],
+                ),
+                ),
     );
   }
 }

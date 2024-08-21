@@ -20,9 +20,7 @@ class Registerscreen extends StatefulWidget {
 class _RegisterscreenState extends State<Registerscreen> {
 
   final PageController _controller = PageController();
-  
   int _currentPage = 0;
-
   List<String> titles = ['Email & password', 'A propos de vous', 'Adresse', 'Numero De Telephone', 'OTP'];
 
   @override
