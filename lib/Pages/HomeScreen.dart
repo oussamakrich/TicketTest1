@@ -32,6 +32,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
+    bool isKeyboardOpen = MediaQuery.of(context).viewInsets.bottom != 0;
     return Scaffold(
       backgroundColor: Colors.grey.shade100,
       body: PageView(
@@ -44,8 +45,9 @@ class _HomeScreenState extends State<HomeScreen> {
           Profile(),
         ],
       ),
+      
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
-      floatingActionButton: Padding(
+      floatingActionButton: isKeyboardOpen ? null : Padding(
         padding: const EdgeInsets.only(top: 20),
         child: FloatingActionButton(
           backgroundColor: MyColors.mainColor,

@@ -35,7 +35,6 @@ login(String email, String password, UserProvider userProvider) async {
     }
   }
   catch (e) {
-    print(e.toString());
     return {'status': 'error', 'message':'An error occured. Please check your connection and try again'};
   }
 }

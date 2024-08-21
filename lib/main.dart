@@ -1,6 +1,4 @@
-import 'package:corail_clone/Auth/RegisterScreen.dart';
-import 'package:corail_clone/Auth/UsagePages/UsagePage.dart';
-import 'package:corail_clone/Auth/WelcomePages/WelcomeScreen.dart';
+import 'package:corail_clone/InitialPages/UsagePages/UsagePage.dart';
 import 'package:corail_clone/Pages/HomeScreen.dart';
 import 'package:corail_clone/Providers/UserProvider.dart';
 import 'package:flutter/material.dart';
@@ -28,11 +26,11 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
       ),
-      home:  const Usage(),
-      // home:  const InitialScreen(),
+      home:  const InitialScreen(),
     );
   }
 }
+
 
 
 class InitialScreen extends StatefulWidget {
@@ -52,7 +50,7 @@ class _InitialScreenState extends State<InitialScreen> {
 
   void checkPreferences() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    if (prefs.getString('name') != null && prefs.getString('lastname') != null && prefs.getString('password') != null) {
+    if (prefs.getString('accessToken') != null) {
       Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => const HomeScreen()));
     } else {
       Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => const Usage()));
@@ -61,6 +59,6 @@ class _InitialScreenState extends State<InitialScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Container();  // Empty container
+    return Container();
   }
 }
