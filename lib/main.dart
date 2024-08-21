@@ -31,8 +31,6 @@ class MyApp extends StatelessWidget {
   }
 }
 
-
-
 class InitialScreen extends StatefulWidget {
 
   const InitialScreen({super.key});
@@ -45,7 +43,9 @@ class _InitialScreenState extends State<InitialScreen> {
   @override
   void initState() {
     super.initState();
-    checkPreferences();
+    Future.delayed(const Duration(seconds: 3), () {
+      checkPreferences();
+    });
   }
 
   void checkPreferences() async {
@@ -59,6 +59,14 @@ class _InitialScreenState extends State<InitialScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Container();
+    return Scaffold(
+      body: Container(
+        width: double.infinity,
+        height: MediaQuery.of(context).size.height,
+        decoration: const BoxDecoration(
+          image: DecorationImage(image: AssetImage('assets/images/splashScreen.png'), fit: BoxFit.cover),
+          ),
+        ),
+    );
   }
 }
