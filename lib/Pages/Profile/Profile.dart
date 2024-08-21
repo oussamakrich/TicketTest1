@@ -1,4 +1,5 @@
 import 'package:corail_clone/Auth/Register/RegisterScreen.dart';
+import 'package:corail_clone/Data/Urls.dart';
 import 'package:corail_clone/Pages/Profile/ProfilePages/UpdateProfile.dart';
 import 'package:corail_clone/Providers/UserProvider.dart';
 import 'package:corail_clone/Data/User.dart';
@@ -15,7 +16,7 @@ class Profile extends StatelessWidget {
 
   disconnected() {
     SharedPreferences.getInstance().then((prefs) {
-      prefs.remove('user');
+      prefs.remove('token');
     });
     Navigator.push(context, MaterialPageRoute(builder: (context) => const Registerscreen()));
     }
@@ -65,8 +66,7 @@ class Profile extends StatelessWidget {
                     ),
                     CircleAvatar(
                       radius: MediaQuery.of(context).size.height / 15,
-                      backgroundColor: Colors.white24,
-                      child: const Icon(Icons.person, color: Colors.white54),
+                      backgroundImage: const  NetworkImage(AppEndPoints.getProfileImg),
                     ),
                     Column(
                       children: [

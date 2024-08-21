@@ -26,7 +26,7 @@ login(String email, String password, UserProvider userProvider) async {
       }
       final decodedToken = JwtDecoder.decode(responseData['accessToken']);
       SharedPreferences prefs = await SharedPreferences.getInstance();
-      prefs.setString('user', json.encode(decodedToken['user']));
+      prefs.setString('accessToken', json.encode(responseData['accessToken']));
       final user = User.fromJson(decodedToken['user']);
       userProvider.setUser(user);
       return {'status': 'success', 'message': 'User logged in successfully'};
