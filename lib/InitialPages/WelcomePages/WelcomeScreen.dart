@@ -1,4 +1,5 @@
 import 'package:carousel_slider/carousel_slider.dart';
+import 'package:corail_clone/Auth/SignIn/SignInScreen.dart';
 import 'package:corail_clone/InitialPages/UsagePages/UsagePage.dart';
 import 'package:corail_clone/Data/MyColors.dart';
 import 'package:flutter/material.dart';
@@ -142,7 +143,9 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                       const Text('vous avez déjà un compte?', style: TextStyle(color:  MyColors.secondaryTextColor)),
                       TextButton(
                         child: const Text('Se connecter', style: TextStyle(color: Color(0xFF036086))),
-                        onPressed: () {},
+                        onPressed: () {
+                          Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => const SignIn()));
+                        },
                       ),
                     ],
                   ),

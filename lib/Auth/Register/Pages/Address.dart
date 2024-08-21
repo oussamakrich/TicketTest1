@@ -33,9 +33,10 @@ class _AddressState extends State<Address> {
               width: MediaQuery.of(context).size.width * 0.9,
               height: MediaQuery.of(context).size.height * 0.06,
               child: TextFormField(
+                controller: formControllers.cityController,
                 style: TextStyle(color: Colors.black, fontSize: MediaQuery.of(context).size.height / 60),
                 decoration: InputDecoration(
-                  hintText: 'Entrer nom de votre ville',
+                  hintText: 'Entrer votre ville',
                   hintStyle: const TextStyle(color: Colors.grey),
                   filled: true,
                   fillColor: Colors.grey.shade200,
@@ -52,9 +53,10 @@ class _AddressState extends State<Address> {
               width: MediaQuery.of(context).size.width * 0.9,
               height: MediaQuery.of(context).size.height * 0.06,
               child: TextFormField(
+                controller: formControllers.addressController,
                 style: TextStyle(color: Colors.black, fontSize: MediaQuery.of(context).size.height / 60),
                 decoration: InputDecoration(
-                  hintText: 'Entrer Votre Adresse',
+                  hintText: 'Entrer votre adresse',
                   hintStyle: const TextStyle(color: Colors.grey),
                   filled: true,
                   fillColor: Colors.grey.shade200,

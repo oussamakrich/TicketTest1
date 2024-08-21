@@ -5,7 +5,6 @@ import 'package:corail_clone/Auth/Register/Pages/EmailPassword.dart';
 import 'package:corail_clone/Auth/Register/Pages/PhoneNumber.dart';
 import 'package:corail_clone/Auth/Register/Pages/otp.dart';
 import 'package:corail_clone/Data/MyColors.dart';
-import 'package:corail_clone/Providers/UserProvider.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 

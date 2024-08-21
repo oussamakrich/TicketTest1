@@ -42,9 +42,11 @@ class _EmailpasswordState extends State<Emailpassword> {
               width: MediaQuery.of(context).size.width * 0.9,
               height: MediaQuery.of(context).size.height * 0.06,
               child: TextFormField(
+                controller: formControllers.emailController,
+                keyboardType: TextInputType.emailAddress,
                 style: TextStyle(color: Colors.black, fontSize: MediaQuery.of(context).size.height / 55),
                 decoration: InputDecoration(
-                  hintText: 'Entrer Votre Email',
+                  hintText: 'Entrer Votre Adresse Mail',
                   hintStyle: const TextStyle(color: Colors.grey),
                   filled: true,
                   fillColor: Colors.grey.shade200,
@@ -53,7 +55,7 @@ class _EmailpasswordState extends State<Emailpassword> {
                     borderSide: BorderSide.none,
                   ),
                 ),
-                onChanged: (value) => formControllers.emailController.text = value,
+                // onChanged: (value) => formControllers.emailController.text = value,
               ),
             ),
             const SizedBox(height: 20),
@@ -61,10 +63,11 @@ class _EmailpasswordState extends State<Emailpassword> {
               width: MediaQuery.of(context).size.width * 0.9,
               height: MediaQuery.of(context).size.height * 0.06,
               child: TextFormField(
+                controller: formControllers.passwordController,
                 style: TextStyle(color: Colors.black, fontSize: MediaQuery.of(context).size.height / 55),
                 obscureText: obscureTexts[0],
                 decoration: InputDecoration(
-                  hintText: 'Entrer Mot de passe',
+                  hintText: 'Entrer Votre Mot de Passe',
                   hintStyle: const TextStyle(color: Colors.grey),
                   filled: true,
                   fillColor: Colors.grey.shade200,
@@ -85,6 +88,7 @@ class _EmailpasswordState extends State<Emailpassword> {
                width: MediaQuery.of(context).size.width * 0.9,
                height: MediaQuery.of(context).size.height * 0.06,
               child: TextFormField(
+                controller: formControllers.confirmPasswordController,
                 style: TextStyle(color: Colors.black, fontSize: MediaQuery.of(context).size.height / 55),
                 obscureText: obscureTexts[1],
                 decoration: InputDecoration(

@@ -16,7 +16,6 @@ class AboutUser extends StatefulWidget {
 
 class _AboutUserState extends State<AboutUser> {
 
-  final TextEditingController _dateController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -34,6 +33,7 @@ class _AboutUserState extends State<AboutUser> {
               width: MediaQuery.of(context).size.width * 0.9,
               height: MediaQuery.of(context).size.height * 0.06,
               child: TextFormField(
+                controller: formControllers.firstNameController,
                 style: TextStyle(color: Colors.black, fontSize: MediaQuery.of(context).size.height / 60),
                 decoration: InputDecoration(
                   hintText: 'Entrer Votre Nom',
@@ -53,6 +53,7 @@ class _AboutUserState extends State<AboutUser> {
               width: MediaQuery.of(context).size.width * 0.9,
               height: MediaQuery.of(context).size.height * 0.06,
               child: TextFormField(
+                controller: formControllers.lastNameController,
                 style: TextStyle(color: Colors.black, fontSize: MediaQuery.of(context).size.height / 60),
                 decoration: InputDecoration(
                   hintText: 'Entrer Votre Prenom',
@@ -94,16 +95,15 @@ class _AboutUserState extends State<AboutUser> {
                   );
                   if (picked != null) {
                      String formattedDate =  DateFormat('yyyy-MM-dd').format(picked);
-                    _dateController.text = formattedDate;
+                      formControllers.dateController.text = formattedDate;
                   }
                 },
-                controller: _dateController,
+                controller: formControllers.dateController,
               ),
             ),
             const SizedBox(height: 20),
             InkWell(
               onTap: () async {
-                formControllers.dateController.text = _dateController.text;
                 if (formControllers.firstNameController.text.isEmpty || formControllers.lastNameController.text.isEmpty || formControllers.dateController.text.isEmpty) {
                   ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('Veuillez remplir tous les champs')));
                 } 

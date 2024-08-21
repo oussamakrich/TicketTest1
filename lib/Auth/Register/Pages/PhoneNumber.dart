@@ -35,10 +35,11 @@ class _PhoneNumberState extends State<PhoneNumber> {
               width: MediaQuery.of(context).size.width * 0.9,
               height: MediaQuery.of(context).size.height * 0.06,
               child: TextFormField(
+                controller: formControllers.phoneController,
                 keyboardType: TextInputType.number,
                 style: TextStyle(color: Colors.black, fontSize: MediaQuery.of(context).size.height / 60),
                 decoration: InputDecoration(
-                  hintText: 'Entrez Votre Numero de Telephone',
+                  hintText: 'Entrer Votre Numéro de Téléphone',
                   hintStyle: const TextStyle(color: Colors.grey),
                   filled: true,
                   fillColor: Colors.grey.shade200,

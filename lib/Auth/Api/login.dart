@@ -1,5 +1,4 @@
 import 'dart:convert';
-
 import 'package:corail_clone/Data/Urls.dart';
 import 'package:corail_clone/Data/User.dart';
 import 'package:corail_clone/Providers/UserProvider.dart';
