@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:corail_clone/Data/Urls.dart';
 import 'package:corail_clone/Pages/Profile/Api/updateInfo.dart';
 import 'package:corail_clone/Pages/Profile/ProfilePages/UpdateFields.dart';
@@ -69,7 +71,7 @@ class _UpdateProfileState extends State<UpdateProfile> {
                           setState(() {
                             myImage = AppEndPoints.getProfileImg;
                           });
-                          var state =  await updateProfileImage(pickedFile, userProvider.user.id);
+                          var state =  await updateProfileImage(File(pickedFile.path), userProvider.user.id);
                           if (state['status'] == 200) {
                             ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(state['message']), backgroundColor: Colors.green,));
                           }

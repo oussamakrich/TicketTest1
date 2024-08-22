@@ -6,8 +6,14 @@ import 'package:corail_clone/Providers/UserProvider.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-class UpdateFields extends StatelessWidget {
+class UpdateFields extends StatefulWidget {
   UpdateFields({super.key});
+
+  @override
+  State<UpdateFields> createState() => _UpdateFieldsState();
+}
+
+class _UpdateFieldsState extends State<UpdateFields> {
 
   final TextEditingController nomController = TextEditingController();
   final TextEditingController prenomController = TextEditingController();

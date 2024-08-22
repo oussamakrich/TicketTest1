@@ -83,7 +83,10 @@ class _PhoneNumberState extends State<PhoneNumber> {
                 ),
                 child: Center(child: 
                   isLoading 
-                  ? const CircularProgressIndicator(valueColor: AlwaysStoppedAnimation<Color>(Colors.white),) 
+                  ? const Padding(
+                    padding: EdgeInsets.symmetric(vertical: 8),
+                    child: CircularProgressIndicator(valueColor: AlwaysStoppedAnimation<Color>(Colors.white),),
+                  ) 
                   : Text('Continuer', style: TextStyle(color: Colors.white, fontSize: MediaQuery.of(context).size.height / 60, fontFamily: 'Poppins'))
                 ),
               ),

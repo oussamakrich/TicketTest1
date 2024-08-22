@@ -1,3 +1,6 @@
+import 'dart:convert';
+
+import 'package:corail_clone/Data/User.dart';
 import 'package:corail_clone/InitialPages/WelcomePages/WelcomeScreen.dart';
 import 'package:corail_clone/Pages/HomeScreen.dart';
 import 'package:corail_clone/Providers/UserProvider.dart';
@@ -21,12 +24,13 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       title: 'Flutter Demo',
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
       ),
-      home:  const InitialScreen(),
+      home: const InitialScreen(),
     );
   }
 }
@@ -51,6 +55,7 @@ class _InitialScreenState extends State<InitialScreen> {
   void checkPreferences() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     if (prefs.getString('accessToken') != null) {
+      Provider.of<UserProvider>(context, listen: false).getUserFromPreferences();
       Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => const HomeScreen()));
     } else {
       Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => const WelcomeScreen()));

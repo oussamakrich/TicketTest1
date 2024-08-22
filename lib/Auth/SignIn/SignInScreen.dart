@@ -163,7 +163,10 @@ class _SignInState extends State<SignIn> {
                         borderRadius: BorderRadius.circular(8),
                       ),
                       child: Center(
-                        child: isLoading ? const CircularProgressIndicator(color: Colors.white, strokeWidth: 3,) : Text(
+                        child: isLoading ? const Padding(
+                          padding: EdgeInsets.symmetric(vertical: 8),
+                          child: CircularProgressIndicator(color: Colors.white, strokeWidth: 3,),
+                        ) : Text(
                                 'Se Conecter',
                                 style: TextStyle(
                                   color: Colors.white,

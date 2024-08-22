@@ -22,7 +22,7 @@ updateProfileInfo(
       'Authorization': accessToken,
       "Content-type": "application/json",
     };
-    var body = {
+    var body = jsonEncode(<String, dynamic>{
         "nom": nom,
         "prenom": prenom,
         "dateNaissance": dateNaissance,
@@ -30,16 +30,15 @@ updateProfileInfo(
         "email": email,
         "address": adresse,
         "telephone": telephone,
-    };
+    });
     try{
       final response = await http.put(
         Uri.parse(AppEndPoints.updateProfile + id.toString()),
         headers: headers,
-        body: json.encode(body), 
+        body: body, 
       );
 
       if (response.statusCode == 200) {
-        
         return {'status': 'success', 'message': 'Profil mis à jour avec succès'};
       } else {
         return {'status': 'error', 'message': response.body};
@@ -50,7 +49,6 @@ updateProfileInfo(
     }
 
 }
-
 
 updateProfileImage(pickedFile, id) async {
 
@@ -64,9 +62,16 @@ updateProfileImage(pickedFile, id) async {
       "Authorization" : accessToken,
       "Content-type": "multipart/form-data"
     };
-    var multipartFile = await http.MultipartFile.fromPath('file', pickedFile.path);
+    // var multipartFile = await http.MultipartFile.fromPath('file', pickedFile.path);
 
-    request.files.add(multipartFile);
+    request.files.add(
+      http.MultipartFile(
+          'image',
+          pickedFile.readAsBytes().asStream(),
+          pickedFile.lengthSync(),
+          filename: pickedFile.path.split('/').last,
+      ),
+    );
     request.headers.addAll(headers);
     var response = await request.send();
 
