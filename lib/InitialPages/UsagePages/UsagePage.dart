@@ -55,7 +55,10 @@ class _UsageState extends State<Usage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.white,
       appBar: AppBar(
+        backgroundColor: Colors.white,
+        surfaceTintColor: Colors.white,
         leading:  IconButton(
           onPressed: () {
               Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => const WelcomeScreen()));
