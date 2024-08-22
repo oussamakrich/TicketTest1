@@ -2,6 +2,7 @@ import 'package:corail_clone/Data/MyColors.dart';
 import 'package:corail_clone/Pages/Home/Home.dart';
 import 'package:corail_clone/Pages/Profile/Profile.dart';
 import 'package:corail_clone/Pages/Receipt/Receipts.dart';
+import 'package:corail_clone/Pages/Rewards/Rewards.dart';
 import 'package:flutter/material.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -40,7 +41,7 @@ class _HomeScreenState extends State<HomeScreen> {
         onPageChanged: updateIndex,
         children: const [
           Home(),
-          Center(child: Text('Rewards')),
+          Rewards(),
           Receipts(),
           Profile(),
         ],
