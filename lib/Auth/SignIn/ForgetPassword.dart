@@ -67,6 +67,7 @@ class _ForgetPasswordState extends State<ForgetPassword> {
                     width: MediaQuery.of(context).size.width * 0.9,
                     height: MediaQuery.of(context).size.height * 0.06,
                     child: TextFormField(
+                      keyboardType: TextInputType.emailAddress,
                       style: TextStyle(color: Colors.black, fontSize: MediaQuery.of(context).size.height / 60),
                       decoration: InputDecoration(
                         hintText: 'Email',

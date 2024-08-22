@@ -78,6 +78,7 @@ class _SignInState extends State<SignIn> {
                     width: MediaQuery.of(context).size.width * 0.9,
                     height: MediaQuery.of(context).size.height * 0.06,
                     child: TextFormField(
+                      keyboardType: TextInputType.emailAddress,
                       style: TextStyle(color: Colors.black, fontSize: MediaQuery.of(context).size.height / 60),
                       decoration: InputDecoration(
                         hintText: 'Entrer Votre Email',
@@ -93,7 +94,7 @@ class _SignInState extends State<SignIn> {
                     ),
                   ),
                   const SizedBox(height: 20),
-                  Text('Adresse Email', style: TextStyle(color: Colors.grey, fontSize: MediaQuery.of(context).size.height / 60)),
+                  Text('Mot de passe', style: TextStyle(color: Colors.grey, fontSize: MediaQuery.of(context).size.height / 60)),
                   const SizedBox(height: 5),
                   SizedBox(
                     width: MediaQuery.of(context).size.width * 0.9,
